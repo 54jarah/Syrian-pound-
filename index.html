@@ -36,7 +36,6 @@
             text-align: center;
         }
         
-        /* تنسيق زر التبديل */
         .toggle-container {
             margin-bottom: 20px;
             background: #f0f2f5;
@@ -153,11 +152,9 @@
         function setMode(newMode) {
             mode = newMode;
             
-            // تحديث شكل الأزرار
             document.getElementById('btnOldToNew').classList.toggle('active', mode === 'oldToNew');
             document.getElementById('btnNewToOld').classList.toggle('active', mode === 'newToOld');
 
-            // تحديث النصوص
             const labelDesc = document.getElementById('labelDesc');
             const resLabel = document.getElementById('resLabel');
             
@@ -169,7 +166,7 @@
                 resLabel.innerText = "المبلغ بالليرة القديمة:";
             }
             
-            calc(); // إعادة الحساب فور تغيير الوضع
+            calc();
         }
 
         function calc() {
@@ -179,13 +176,8 @@
 
             if (val > 0) {
                 resBox.style.display = "block";
-                let result;
-                if (mode === 'oldToNew') {
-                    result = val / 100;
-                } else {
-                    result = val * 100;
-                }
-                display.innerText = Number(result).toLocaleString() + " ليرة";
+                // تم حذف الضرب والقسمة، يظهر الرقم كما هو
+                display.innerText = Number(val).toLocaleString() + " ليرة";
             } else {
                 resBox.style.display = "none";
             }
