@@ -41,7 +41,6 @@
             margin-bottom: 12px;
             color: #34495e;
             text-align: right;
-            padding-right: 5px;
         }
         .toggle-container {
             margin-bottom: 20px;
@@ -76,7 +75,6 @@
             text-align: center;
             box-sizing: border-box;
             background: #fafafa;
-            color: #2c3e50;
         }
         .result-box {
             margin-top: 20px;
@@ -85,35 +83,36 @@
             border-radius: 12px;
             border-right: 5px solid #3498db;
             display: none;
-            text-align: center;
-        }
-        .res-label {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            display: block;
         }
         .res-numeric {
             font-size: 1.8rem;
             font-weight: bold;
             color: #3498db;
-            margin-bottom: 10px;
             display: block;
+            margin-bottom: 10px;
         }
         .res-arabic {
             font-size: 1.1rem;
             color: #27ae60;
             font-weight: bold;
-            line-height: 1.4;
-            display: block;
             border-top: 1px solid #eee;
             padding-top: 10px;
+            display: block;
         }
         .blessing-red-zone {
             font-size: 1.6rem;
             color: #2c3e50;
-            margin: 35px 0;
+            margin: 30px 0 10px 0;
             font-weight: 800;
+            text-align: center;
+        }
+        /* تنسيق صندوق العداد لضمان الظهور */
+        .counter-wrapper {
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
             text-align: center;
         }
         footer {
@@ -148,13 +147,20 @@
         <input type="text" id="mainInput" placeholder="0" oninput="formatAndCalc(this)">
 
         <div class="result-box" id="resBox">
-            <span id="resLabel" class="res-label">المبلغ بالليرة الجديدة:</span>
+            <small id="resLabel" style="color: #7f8c8d; display:block; margin-bottom:5px;">المبلغ بالليرة الجديدة:</small>
             <span id="resVal" class="res-numeric"></span>
             <span id="resArabic" class="res-arabic"></span>
         </div>
     </div>
 
     <div class="blessing-red-zone">اللهم صلِّ وسلم على نبينا محمد</div>
+
+    <div class="counter-wrapper">
+        <p style="font-size: 0.75rem; margin-bottom: 8px; color: #7f8c8d;">عدد زيارات الموقع</p>
+        <a href="https://www.freecounterstat.com" title="hit counter">
+            <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0" title="hit counter" alt="hit counter">
+        </a>
+    </div>
 
     <footer>
         <p style="font-size: 0.8rem; color: #7f8c8d; margin-bottom: 10px;">برمجة وتطوير: جراح جاسم</p>
@@ -195,11 +201,8 @@
                 resBox.style.display = "block";
                 
                 let val = parseFloat(rawValue);
-                
-                // عرض الناتج الرقمي مع فواصل
                 displayNum.innerText = val.toLocaleString() + " ليرة";
                 
-                // عرض الناتج كتابياً بالعربي
                 try {
                     let tafgeet = new Tafgeet(val, 'SYP');
                     displayArabic.innerText = tafgeet.parse();
