@@ -75,6 +75,13 @@
             box-sizing: border-box;
             background: #fafafa;
         }
+        .input-arabic-hint {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 8px;
+            display: block;
+            min-height: 1.2em;
+        }
         .result-box {
             margin-top: 20px;
             padding: 15px;
@@ -137,8 +144,10 @@
             <button id="btnNewToOld" class="toggle-btn" onclick="setMode('newToOld')">من الجديد للقديم</button>
         </div>
 
-        <p id="labelDesc" style="font-weight: bold; margin-bottom: 15px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
+        <p id="labelDesc" style="font-weight: bold; margin-bottom: 10px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
+        
         <input type="text" id="mainInput" placeholder="0" inputmode="numeric" oninput="processInput(this)">
+        <span id="inputArabicHint" class="input-arabic-hint"></span>
 
         <div class="result-box" id="resBox">
             <small id="resLabel" style="color: #7f8c8d; display:block; margin-bottom:5px;">المبلغ بالليرة الجديدة:</small>
@@ -191,31 +200,36 @@
             const resBox = document.getElementById("resBox");
             const displayNum = document.getElementById("resVal");
             const displayArabic = document.getElementById("resArabic");
+            const inputArabicHint = document.getElementById("inputArabicHint");
 
             if (rawValue !== '' && parseInt(rawValue) > 0) {
                 let inputNum = parseInt(rawValue, 10);
-                resBox.style.display = "block";
                 
-                // --- استعادة عملية التحويل الحسابية هنا ---
+                // 1. تفقيط ما يكتبه المستخدم حالياً
+                try {
+                    let inputTafgeet = new Tafgeet(inputNum, 'SYP');
+                    inputArabicHint.innerText = inputTafgeet.parse();
+                } catch(e) { inputArabicHint.innerText = ""; }
+
+                // 2. عملية الحساب
+                resBox.style.display = "block";
                 let finalResult;
                 if (mode === 'oldToNew') {
-                    finalResult = inputNum / 100; // القديم للجديد نقسم على 100
+                    finalResult = inputNum / 100;
                 } else {
-                    finalResult = inputNum * 100; // الجديد للقديم نضرب في 100
+                    finalResult = inputNum * 100;
                 }
                 
-                // عرض الناتج الرقمي مع فواصل
+                // 3. عرض الناتج الرقمي والكتابي
                 displayNum.innerText = finalResult.toLocaleString() + " ليرة";
-                
-                // تحويل الناتج لكلمات عربية
                 try {
-                    let tafgeet = new Tafgeet(finalResult, 'SYP');
-                    displayArabic.innerText = tafgeet.parse();
-                } catch(e) {
-                    displayArabic.innerText = "";
-                }
+                    let resTafgeet = new Tafgeet(finalResult, 'SYP');
+                    displayArabic.innerText = resTafgeet.parse();
+                } catch(e) { displayArabic.innerText = ""; }
+                
             } else {
                 resBox.style.display = "none";
+                inputArabicHint.innerText = "";
             }
         }
     </script>
