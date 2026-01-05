@@ -4,19 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>محول الليرة السورية | Syrian Lira Converter</title>
-    <meta name="description" content="موقع جراح جاسم لتحويل الليرة السورية بين القديم والجديد. Syrian Lira Converter by Jarah Jassim.">
-    <meta name="keywords" content="تحويل الليرة السورية, موقع جراح, Syrian Lira, SYP converter">
+    <title>محول الليرة السورية | جراح جاسم</title>
+    <meta name="description" content="أفضل موقع لتحويل الليرة السورية من القديم إلى الجديد والعكس. موقع جراح جاسم لتحويل العملة بدقة مع ميزة التفقيط بالعربي.">
+    <meta name="keywords" content="تحويل الليرة السورية, تحويل الليرة من قديم الى جديد, تحويل الليرة من جديد الى قديم, موقع جراح لتحويل الليرة, جراح جاسم">
 
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --success: #27ae60;
-            --text: #2c3e50;
-            --light-bg: #f0f2f5;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -25,28 +17,11 @@
             flex-direction: column;
             align-items: center;
             margin: 0;
-            color: var(--text);
-            transition: 0.3s;
+            color: #2c3e50;
         }
-
-        /* زر تبديل اللغة */
-        .lang-switcher {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border: 1px solid #ddd;
-            z-index: 100;
-        }
-
         header {
             width: 100%;
-            background: var(--primary);
+            background: #2c3e50;
             color: white;
             padding: 25px 0;
             text-align: center;
@@ -55,116 +30,101 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
-
         .container {
             background: white;
             width: 90%;
-            max-width: 420px;
+            max-width: 400px;
             padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
         }
-
         .option-title {
             font-size: 0.95rem;
             font-weight: bold;
             margin-bottom: 12px;
+            color: #34495e;
             text-align: right;
         }
-
         .toggle-container {
             margin-bottom: 20px;
-            background: var(--light-bg);
+            background: #f0f2f5;
             padding: 5px;
-            border-radius: 15px;
+            border-radius: 12px;
             display: flex;
         }
-
         .toggle-btn {
             flex: 1;
             padding: 12px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
             background: transparent;
             color: #7f8c8d;
-            font-family: inherit;
         }
-
         .toggle-btn.active {
-            background: var(--primary);
+            background: #2c3e50;
             color: white;
         }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
         input[type="text"] {
             width: 100%;
-            padding: 20px;
-            font-size: 1.6rem;
+            padding: 18px;
+            font-size: 1.5rem;
             border: 2px solid #eee;
-            border-radius: 18px;
+            border-radius: 15px;
             outline: none;
             text-align: center;
             box-sizing: border-box;
             background: #fafafa;
-            color: var(--primary);
         }
-
         .hint-text {
             font-size: 0.85rem;
             color: #7f8c8d;
             margin-top: 8px;
             display: block;
             min-height: 1.2em;
-            line-height: 1.4;
         }
-
         .result-box {
-            margin-top: 25px;
-            padding: 20px;
+            margin-top: 20px;
+            padding: 15px;
             background: #f8f9fa;
-            border-radius: 18px;
-            border-right: 6px solid var(--secondary);
+            border-radius: 12px;
+            border-right: 5px solid #3498db;
             display: none;
-            animation: fadeIn 0.4s ease;
         }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
         .res-numeric {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            color: var(--secondary);
-            margin: 10px 0;
+            color: #3498db;
             display: block;
+            margin-bottom: 10px;
         }
-
         .res-arabic {
             font-size: 1.1rem;
-            color: var(--success);
+            color: #27ae60;
             font-weight: bold;
             border-top: 1px solid #eee;
-            padding-top: 12px;
+            padding-top: 10px;
             display: block;
         }
-
-        .blessing {
-            font-size: 1.5rem;
-            margin: 30px 0;
+        .blessing-red-zone {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin: 30px 0 10px 0;
             font-weight: 800;
             text-align: center;
         }
-
-        .counter-section { margin-bottom: 20px; text-align: center; }
-
-        footer { margin-top: auto; padding: 25px; text-align: center; }
-
+        .counter-section {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+        }
         .insta-btn {
             display: inline-block;
             background: white;
@@ -175,149 +135,102 @@
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
-        /* تنسيقات للغة الإنجليزية */
-        body.en { direction: ltr; }
-        body.en .option-title { text-align: left; }
-        body.en .result-box { border-right: none; border-left: 6px solid var(--secondary); }
     </style>
 </head>
-<body id="mainBody">
+<body>
 
-    <div class="lang-switcher" onclick="toggleLanguage()" id="langBtn">English</div>
-
-    <header id="txtHeader">محول الليرة السورية</header>
+    <header>محول الليرة السورية</header>
 
     <div class="container">
-        <div class="option-title" id="txtOptTitle">اختر طريقة التحويل</div>
+        <div class="option-title">اختر طريقة التحويل</div>
         <div class="toggle-container">
             <button id="btnOldToNew" class="toggle-btn active" onclick="setMode('oldToNew')">من القديم للجديد</button>
             <button id="btnNewToOld" class="toggle-btn" onclick="setMode('newToOld')">من الجديد للقديم</button>
         </div>
 
-        <p id="labelDesc" style="font-weight: bold; margin-bottom: 10px;">أدخل المبلغ بالليرة القديمة 💸</p>
+        <p id="labelDesc" style="font-weight: bold; margin-bottom: 10px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
         
-        <div class="input-group">
-            <input type="text" id="mainInput" placeholder="0" inputmode="numeric" oninput="process()">
-            <span id="inputHint" class="hint-text"></span>
-        </div>
+        <input type="text" id="mainInput" placeholder="0" inputmode="numeric" oninput="processInput(this)">
+        <span id="inputHint" class="hint-text"></span>
 
         <div class="result-box" id="resBox">
-            <small id="resLabel" style="color: #7f8c8d; display:block;">المبلغ بالليرة الجديدة:</small>
+            <small id="resLabel" style="color: #7f8c8d; display:block; margin-bottom:5px;">المبلغ بالليرة الجديدة:</small>
             <span id="resVal" class="res-numeric"></span>
-            <span id="resWritten" class="res-arabic"></span>
+            <span id="resArabic" class="res-arabic"></span>
         </div>
     </div>
 
-    <div class="blessing" id="txtBlessing">اللهم صلِّ وسلم على نبينا محمد</div>
+    <div class="blessing-red-zone">اللهم صلِّ وسلم على نبينا محمد</div>
 
     <div class="counter-section">
-        <p id="txtCounter" style="font-size: 0.75rem; margin-bottom: 5px; color: #7f8c8d;">عدد زيارات الموقع</p>
-        <a href="https://www.freecounterstat.com"><img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0"></a>
+        <p style="font-size: 0.75rem; margin-bottom: 5px; color: #7f8c8d;">عدد زيارات الموقع</p>
+        <a href="https://www.freecounterstat.com" title="hit counter">
+            <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0" title="hit counter" alt="hit counter">
+        </a>
     </div>
 
     <footer>
-        <p id="txtDev" style="font-size: 0.8rem; color: #7f8c8d; margin-bottom: 10px;">برمجة وتطوير: جراح جاسم</p>
-        <a href="https://www.instagram.com/54jarah" target="_blank" class="insta-btn">📸 INSTA: @54jarah</a>
+        <p style="font-size: 0.8rem; color: #7f8c8d; margin-bottom: 10px;">برمجة وتطوير: جراح جاسم</p>
+        <a href="https://www.instagram.com/54jarah" target="_blank" class="insta-btn">INSTA: @54jarah 📸</a>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/gh/mabdullahadeel/tafgeetjs@master/tafgeet.js"></script>
     
     <script>
         let mode = 'oldToNew';
-        let currentLang = 'ar';
-
-        const translations = {
-            ar: {
-                header: "محول الليرة السورية",
-                optTitle: "اختر طريقة التحويل",
-                oldToNew: "من القديم للجديد",
-                newToOld: "من الجديد للقديم",
-                descOld: "أدخل المبلغ بالليرة القديمة 💸",
-                descNew: "أدخل المبلغ بالليرة الجديدة 💸",
-                resOld: "المبلغ بالليرة القديمة:",
-                resNew: "المبلغ بالليرة الجديدة:",
-                blessing: "اللهم صلِّ وسلم على نبينا محمد",
-                counter: "عدد زيارات الموقع",
-                dev: "برمجة وتطوير: جراح جاسم",
-                langBtn: "English"
-            },
-            en: {
-                header: "Syrian Lira Converter",
-                optTitle: "Choose Conversion Method",
-                oldToNew: "Old to New",
-                newToOld: "New to Old",
-                descOld: "Enter amount in Old Lira 💸",
-                descNew: "Enter amount in New Lira 💸",
-                resOld: "Amount in Old Lira:",
-                resNew: "Amount in New Lira:",
-                blessing: "Peace and Blessings upon Prophet Muhammad",
-                counter: "Visitors Count",
-                dev: "Developed by: Jarah Jassim",
-                langBtn: "عربي"
-            }
-        };
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            document.getElementById('mainBody').className = currentLang;
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            
-            const t = translations[currentLang];
-            document.getElementById('txtHeader').innerText = t.header;
-            document.getElementById('txtOptTitle').innerText = t.optTitle;
-            document.getElementById('btnOldToNew').innerText = t.oldToNew;
-            document.getElementById('btnNewToOld').innerText = t.newToOld;
-            document.getElementById('txtBlessing').innerText = t.blessing;
-            document.getElementById('txtCounter').innerText = t.counter;
-            document.getElementById('txtDev').innerText = t.dev;
-            document.getElementById('langBtn').innerText = t.langBtn;
-
-            setMode(mode); // لتحديث النصوص المتبقية
-        }
 
         function setMode(newMode) {
             mode = newMode;
-            const t = translations[currentLang];
             document.getElementById('btnOldToNew').classList.toggle('active', mode === 'oldToNew');
             document.getElementById('btnNewToOld').classList.toggle('active', mode === 'newToOld');
             
-            document.getElementById('labelDesc').innerText = (mode === 'oldToNew') ? t.descOld : t.descNew;
-            document.getElementById('resLabel').innerText = (mode === 'oldToNew') ? t.resNew : t.resOld;
+            const labelDesc = document.getElementById('labelDesc');
+            const resLabel = document.getElementById('resLabel');
             
-            process();
+            if (mode === 'oldToNew') {
+                labelDesc.innerText = "أدخل المبلغ بالليرة القديمة 💸";
+                resLabel.innerText = "المبلغ بالليرة الجديدة:";
+            } else {
+                labelDesc.innerText = "أدخل المبلغ بالليرة الجديدة 💸";
+                resLabel.innerText = "المبلغ بالليرة القديمة:";
+            }
+            processInput(document.getElementById('mainInput'));
         }
 
-        function process() {
-            let input = document.getElementById('mainInput');
-            let raw = input.value.replace(/\D/g, '');
-            input.value = raw;
+        function processInput(input) {
+            let rawValue = input.value.replace(/\D/g, '');
+            input.value = rawValue; 
 
             const resBox = document.getElementById("resBox");
-            const inputHint = document.getElementById("inputHint");
             const displayNum = document.getElementById("resVal");
-            const displayWritten = document.getElementById("resWritten");
+            const displayArabic = document.getElementById("resArabic");
+            const inputHint = document.getElementById("inputHint");
 
-            if (raw !== '' && parseInt(raw) > 0) {
-                let num = parseInt(raw, 10);
-                resBox.style.display = "block";
-
-                // 1. تفقيط المدخلات
+            if (rawValue !== '' && parseInt(rawValue) > 0) {
+                let inputNum = parseInt(rawValue, 10);
+                
+                // 1. تفقيط المدخلات (ما يكتبه المستخدم)
                 try {
-                    let tafInput = new Tafgeet(num, 'SYP');
-                    inputHint.innerText = currentLang === 'ar' ? tafInput.parse() : num.toLocaleString() + " SYP";
+                    let tafInput = new Tafgeet(inputNum, 'SYP');
+                    inputHint.innerText = tafInput.parse();
                 } catch(e) { inputHint.innerText = ""; }
 
                 // 2. الحساب
-                let result = (mode === 'oldToNew') ? num / 100 : num * 100;
-                displayNum.innerText = result.toLocaleString() + (currentLang === 'ar' ? " ليرة" : " SYP");
-
-                // 3. تفقيط الناتج (بالعربي دائماً لأنه المطلوب)
+                resBox.style.display = "block";
+                let finalResult;
+                if (mode === 'oldToNew') {
+                    finalResult = inputNum / 100;
+                } else {
+                    finalResult = inputNum * 100;
+                }
+                
+                // 3. عرض الناتج الرقمي والكتابي
+                displayNum.innerText = finalResult.toLocaleString() + " ليرة";
                 try {
-                    let tafRes = new Tafgeet(result, 'SYP');
-                    displayWritten.innerText = tafRes.parse();
-                } catch(e) { displayWritten.innerText = ""; }
-
+                    let tafRes = new Tafgeet(finalResult, 'SYP');
+                    displayArabic.innerText = tafRes.parse();
+                } catch(e) { displayArabic.innerText = ""; }
+                
             } else {
                 resBox.style.display = "none";
                 inputHint.innerText = "";
