@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محول الليرة السورية | جراح جاسم</title>
+    
+    <title>محول الليرة السورية | موقع جراح لتحويل الليرة</title>
+    <meta name="description" content="موقع جراح جاسم لتحويل الليرة السورية من القديم إلى الجديد والعكس مع ميزة التفقيط بالعربي.">
+    <meta name="keywords" content="تحويل الليرة السورية, تحويل الليرة من قديم الى جديد, موقع جراح لتحويل الليرة, جراح جاسم">
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -74,7 +78,9 @@
             text-align: center;
             box-sizing: border-box;
             background: #fafafa;
+            color: #2c3e50;
         }
+        /* نص التفقيط تحت خانة الكتابة */
         .hint-text {
             font-size: 0.9rem;
             color: #e67e22; 
@@ -148,7 +154,7 @@
 
         <p id="labelDesc" style="font-weight: bold; margin-bottom: 10px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
         
-        <input type="text" id="mainInput" placeholder="0" inputmode="numeric" onchange="runConversion()">
+        <input type="text" id="mainInput" placeholder="0" inputmode="numeric" oninput="processInput()">
         <span id="inputHint" class="hint-text"></span>
 
         <div class="result-box" id="resBox">
@@ -156,16 +162,14 @@
             <span id="resVal" class="res-numeric"></span>
             <span id="resArabic" class="res-arabic"></span>
         </div>
-        
-        <p style="font-size: 0.7rem; color: #999; margin-top: 10px;">* يظهر التفقيط العربي بعد الانتهاء من كتابة الرقم</p>
     </div>
 
     <div class="blessing-red-zone">اللهم صلِّ وسلم على نبينا محمد</div>
 
     <div class="counter-section">
         <p style="font-size: 0.75rem; margin-bottom: 5px; color: #7f8c8d;">عدد زيارات الموقع</p>
-        <a href="https://www.freecounterstat.com">
-            <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0">
+        <a href="https://www.freecounterstat.com" title="hit counter">
+            <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0" title="hit counter" alt="hit counter">
         </a>
     </div>
 
@@ -194,42 +198,51 @@
                 labelDesc.innerText = "أدخل المبلغ بالليرة الجديدة 💸";
                 resLabel.innerText = "المبلغ بالليرة القديمة:";
             }
-            runConversion();
+            processInput();
         }
 
-        function runConversion() {
+        function processInput() {
             const input = document.getElementById('mainInput');
-            let val = input.value.replace(/\D/g, '');
-            input.value = val;
+            let rawValue = input.value.replace(/\D/g, ''); // تنظيف من أي رموز
+            input.value = rawValue; 
 
             const resBox = document.getElementById("resBox");
             const displayNum = document.getElementById("resVal");
             const displayArabic = document.getElementById("resArabic");
             const inputHint = document.getElementById("inputHint");
 
-            if (val !== '' && parseInt(val) > 0) {
-                let num = parseInt(val, 10);
+            if (rawValue !== '' && parseInt(rawValue) > 0) {
+                let inputNum = parseInt(rawValue, 10);
                 
-                // تفقيط الرقم المدخل (فوق)
-                if (window.Tafgeet) {
+                // 1. تفقيط الرقم الذي تكتبه حالياً (فوق)
+                if (typeof Tafgeet !== "undefined") {
                     try {
-                        let taf1 = new Tafgeet(num, 'SYP');
-                        inputHint.innerText = taf1.parse();
+                        let tafInput = new Tafgeet(inputNum, 'SYP');
+                        inputHint.innerText = tafInput.parse();
                     } catch(e) { inputHint.innerText = ""; }
                 }
 
                 resBox.style.display = "block";
-                let result = (mode === 'oldToNew') ? num / 100 : num * 100;
                 
-                displayNum.innerText = result.toLocaleString() + " ليرة";
+                // 2. عملية الحساب الحقيقية
+                let finalResult;
+                if (mode === 'oldToNew') {
+                    finalResult = inputNum / 100;
+                } else {
+                    finalResult = inputNum * 100;
+                }
                 
-                // تفقيط الناتج (تحت)
-                if (window.Tafgeet) {
+                // 3. عرض الناتج الرقمي مع الفواصل
+                displayNum.innerText = finalResult.toLocaleString() + " ليرة";
+                
+                // 4. تفقيط الناتج النهائي (تحت)
+                if (typeof Tafgeet !== "undefined") {
                     try {
-                        let taf2 = new Tafgeet(result, 'SYP');
-                        displayArabic.innerText = taf2.parse();
+                        let tafRes = new Tafgeet(finalResult, 'SYP');
+                        displayArabic.innerText = tafRes.parse();
                     } catch(e) { displayArabic.innerText = ""; }
                 }
+                
             } else {
                 resBox.style.display = "none";
                 inputHint.innerText = "";
