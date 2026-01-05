@@ -36,10 +36,12 @@
             text-align: center;
         }
         .option-title {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: #34495e;
+            text-align: right;
+            padding-right: 5px;
         }
         .toggle-container {
             margin-bottom: 20px;
@@ -50,7 +52,7 @@
         }
         .toggle-btn {
             flex: 1;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -58,6 +60,7 @@
             transition: 0.3s;
             background: transparent;
             color: #7f8c8d;
+            font-family: inherit;
         }
         .toggle-btn.active {
             background: #2c3e50;
@@ -66,13 +69,14 @@
         input[type="text"] {
             width: 100%;
             padding: 18px;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             border: 2px solid #eee;
             border-radius: 15px;
             outline: none;
             text-align: center;
             box-sizing: border-box;
             background: #fafafa;
+            color: #2c3e50;
         }
         .result-box {
             margin-top: 20px;
@@ -81,18 +85,34 @@
             border-radius: 12px;
             border-right: 5px solid #3498db;
             display: none;
+            text-align: center;
         }
-        .arabic-text {
+        .res-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
             display: block;
-            margin-top: 10px;
-            font-size: 0.95rem;
+        }
+        .res-numeric {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .res-arabic {
+            font-size: 1.1rem;
             color: #27ae60;
             font-weight: bold;
+            line-height: 1.4;
+            display: block;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
         }
         .blessing-red-zone {
             font-size: 1.6rem;
             color: #2c3e50;
-            margin: 30px 0;
+            margin: 35px 0;
             font-weight: 800;
             text-align: center;
         }
@@ -105,11 +125,11 @@
             display: inline-block;
             background: white;
             color: #e1306c;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 12px 25px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -119,27 +139,25 @@
 
     <div class="container">
         <div class="option-title">اختر طريقة التحويل</div>
-        
         <div class="toggle-container">
             <button id="btnOldToNew" class="toggle-btn active" onclick="setMode('oldToNew')">من القديم للجديد</button>
             <button id="btnNewToOld" class="toggle-btn" onclick="setMode('newToOld')">من الجديد للقديم</button>
         </div>
 
         <p id="labelDesc" style="font-weight: bold; margin-bottom: 15px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
-        
         <input type="text" id="mainInput" placeholder="0" oninput="formatAndCalc(this)">
 
         <div class="result-box" id="resBox">
-            <small id="resLabel" style="color: #7f8c8d;">المبلغ بالليرة الجديدة:</small>
-            <div id="resVal" style="font-size: 1.5rem; font-weight: bold; color: #3498db; margin-top: 5px;"></div>
-            <span id="resArabic" class="arabic-text"></span>
+            <span id="resLabel" class="res-label">المبلغ بالليرة الجديدة:</span>
+            <span id="resVal" class="res-numeric"></span>
+            <span id="resArabic" class="res-arabic"></span>
         </div>
     </div>
 
     <div class="blessing-red-zone">اللهم صلِّ وسلم على نبينا محمد</div>
 
     <footer>
-        <p style="font-size: 0.8rem; color: #7f8c8d;">برمجة وتطوير: جراح جاسم</p>
+        <p style="font-size: 0.8rem; color: #7f8c8d; margin-bottom: 10px;">برمجة وتطوير: جراح جاسم</p>
         <a href="https://www.instagram.com/54jarah" target="_blank" class="insta-btn">INSTA: @54jarah 📸</a>
     </footer>
 
@@ -166,37 +184,30 @@
             formatAndCalc(document.getElementById('mainInput'));
         }
 
-        // وظيفة تنسيق الرقم بالفواصل أثناء الكتابة والحساب
         function formatAndCalc(input) {
-            // إزالة أي فواصل موجودة للحصول على الرقم الصافي
             let rawValue = input.value.replace(/,/g, '');
-            
-            if (rawValue && !isNaN(rawValue)) {
-                // وضع الفواصل في خانة الإدخال
-                input.value = Number(rawValue).toLocaleString();
-                
-                const val = parseFloat(rawValue);
-                const resBox = document.getElementById("resBox");
-                const display = document.getElementById("resVal");
-                const displayArabic = document.getElementById("resArabic");
+            const resBox = document.getElementById("resBox");
+            const displayNum = document.getElementById("resVal");
+            const displayArabic = document.getElementById("resArabic");
 
+            if (rawValue && !isNaN(rawValue) && rawValue > 0) {
+                input.value = Number(rawValue).toLocaleString();
                 resBox.style.display = "block";
                 
-                // الحساب (بناءً على طلبك السابق بدون تقسيم، يظهر كما هو)
-                let result = val; 
+                let val = parseFloat(rawValue);
                 
-                display.innerText = result.toLocaleString() + " ليرة";
+                // عرض الناتج الرقمي مع فواصل
+                displayNum.innerText = val.toLocaleString() + " ليرة";
                 
-                // التعديل الأول: تحويل الناتج لكلمات عربية
+                // عرض الناتج كتابياً بالعربي
                 try {
-                    let fraction = (result % 1).toFixed(2) * 100;
-                    let tafgeet = new Tafgeet(result, 'SYP');
+                    let tafgeet = new Tafgeet(val, 'SYP');
                     displayArabic.innerText = tafgeet.parse();
                 } catch(e) {
                     displayArabic.innerText = "";
                 }
             } else {
-                document.getElementById("resBox").style.display = "none";
+                resBox.style.display = "none";
                 if(input.value === "") input.value = "";
             }
         }
