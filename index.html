@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>محول الليرة السورية | جراح جاسم</title>
-    <meta name="description" content="أفضل موقع لتحويل الليرة السورية من القديم إلى الجديد والعكس. موقع جراح جاسم لتحويل العملة بدقة مع ميزة التفقيط بالعربي.">
-    <meta name="keywords" content="تحويل الليرة السورية, تحويل الليرة من قديم الى جديد, تحويل الليرة من جديد الى قديم, موقع جراح لتحويل الليرة, جراح جاسم">
-
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -198,6 +194,7 @@
         }
 
         function processInput(input) {
+            // تنظيف المدخلات لتقبل الأرقام فقط
             let rawValue = input.value.replace(/\D/g, '');
             input.value = rawValue; 
 
@@ -209,13 +206,15 @@
             if (rawValue !== '' && parseInt(rawValue) > 0) {
                 let inputNum = parseInt(rawValue, 10);
                 
-                // 1. تفقيط المدخلات (ما يكتبه المستخدم)
+                // 1. تفقيط ما يكتبه المستخدم حالياً (فوق)
                 try {
                     let tafInput = new Tafgeet(inputNum, 'SYP');
                     inputHint.innerText = tafInput.parse();
-                } catch(e) { inputHint.innerText = ""; }
+                } catch(e) {
+                    inputHint.innerText = "";
+                }
 
-                // 2. الحساب
+                // 2. عملية الحساب
                 resBox.style.display = "block";
                 let finalResult;
                 if (mode === 'oldToNew') {
@@ -224,12 +223,16 @@
                     finalResult = inputNum * 100;
                 }
                 
-                // 3. عرض الناتج الرقمي والكتابي
+                // 3. عرض الناتج الرقمي مع فواصل
                 displayNum.innerText = finalResult.toLocaleString() + " ليرة";
+                
+                // 4. تفقيط الناتج النهائي (تحت)
                 try {
                     let tafRes = new Tafgeet(finalResult, 'SYP');
                     displayArabic.innerText = tafRes.parse();
-                } catch(e) { displayArabic.innerText = ""; }
+                } catch(e) {
+                    displayArabic.innerText = "";
+                }
                 
             } else {
                 resBox.style.display = "none";
