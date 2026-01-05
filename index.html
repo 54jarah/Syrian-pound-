@@ -35,14 +35,18 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
         }
-        
+        .option-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
         .toggle-container {
             margin-bottom: 20px;
             background: #f0f2f5;
             padding: 5px;
             border-radius: 12px;
             display: flex;
-            justify-content: space-between;
         }
         .toggle-btn {
             flex: 1;
@@ -59,8 +63,7 @@
             background: #2c3e50;
             color: white;
         }
-
-        input[type="number"] {
+        input[type="text"] {
             width: 100%;
             padding: 18px;
             font-size: 1.4rem;
@@ -79,19 +82,19 @@
             border-right: 5px solid #3498db;
             display: none;
         }
+        .arabic-text {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #27ae60;
+            font-weight: bold;
+        }
         .blessing-red-zone {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #2c3e50;
-            margin: 40px 0;
+            margin: 30px 0;
             font-weight: 800;
             text-align: center;
-        }
-        .counter-box {
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 15px;
-            background: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         footer {
             margin-top: auto;
@@ -102,12 +105,11 @@
             display: inline-block;
             background: white;
             color: #e1306c;
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 10px 20px;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -116,45 +118,41 @@
     <header>محول الليرة السورية</header>
 
     <div class="container">
+        <div class="option-title">اختر طريقة التحويل</div>
+        
         <div class="toggle-container">
             <button id="btnOldToNew" class="toggle-btn active" onclick="setMode('oldToNew')">من القديم للجديد</button>
             <button id="btnNewToOld" class="toggle-btn" onclick="setMode('newToOld')">من الجديد للقديم</button>
         </div>
 
         <p id="labelDesc" style="font-weight: bold; margin-bottom: 15px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
-        <input type="number" id="mainInput" placeholder="0.00" oninput="calc()">
+        
+        <input type="text" id="mainInput" placeholder="0" oninput="formatAndCalc(this)">
 
         <div class="result-box" id="resBox">
             <small id="resLabel" style="color: #7f8c8d;">المبلغ بالليرة الجديدة:</small>
-            <div id="resVal" style="font-size: 1.6rem; font-weight: bold; color: #3498db; margin-top: 5px;"></div>
+            <div id="resVal" style="font-size: 1.5rem; font-weight: bold; color: #3498db; margin-top: 5px;"></div>
+            <span id="resArabic" class="arabic-text"></span>
         </div>
     </div>
 
-    <div class="blessing-red-zone">
-        اللهم صلِّ وسلم على نبينا محمد
-    </div>
-
-    <div class="counter-box">
-        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #7f8c8d;">عدد زيارات الموقع</p>
-        <a href="https://www.freecounterstat.com" title="hit counter"><img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0" title="hit counter" alt="hit counter"></a>
-    </div>
+    <div class="blessing-red-zone">اللهم صلِّ وسلم على نبينا محمد</div>
 
     <footer>
-        <p style="font-size: 0.9rem; color: #7f8c8d; margin-bottom: 10px;">برمجة وتطوير: جراح جاسم</p>
-        <a href="https://www.instagram.com/54jarah" target="_blank" class="insta-btn">
-            INSTA: @54jarah 📸
-        </a>
+        <p style="font-size: 0.8rem; color: #7f8c8d;">برمجة وتطوير: جراح جاسم</p>
+        <a href="https://www.instagram.com/54jarah" target="_blank" class="insta-btn">INSTA: @54jarah 📸</a>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/gh/mabdullahadeel/tafgeetjs@master/tafgeet.js"></script>
+    
     <script>
         let mode = 'oldToNew';
 
         function setMode(newMode) {
             mode = newMode;
-            
             document.getElementById('btnOldToNew').classList.toggle('active', mode === 'oldToNew');
             document.getElementById('btnNewToOld').classList.toggle('active', mode === 'newToOld');
-
+            
             const labelDesc = document.getElementById('labelDesc');
             const resLabel = document.getElementById('resLabel');
             
@@ -165,21 +163,41 @@
                 labelDesc.innerText = "أدخل المبلغ بالليرة الجديدة 💸";
                 resLabel.innerText = "المبلغ بالليرة القديمة:";
             }
-            
-            calc();
+            formatAndCalc(document.getElementById('mainInput'));
         }
 
-        function calc() {
-            const val = document.getElementById("mainInput").value;
-            const resBox = document.getElementById("resBox");
-            const display = document.getElementById("resVal");
+        // وظيفة تنسيق الرقم بالفواصل أثناء الكتابة والحساب
+        function formatAndCalc(input) {
+            // إزالة أي فواصل موجودة للحصول على الرقم الصافي
+            let rawValue = input.value.replace(/,/g, '');
+            
+            if (rawValue && !isNaN(rawValue)) {
+                // وضع الفواصل في خانة الإدخال
+                input.value = Number(rawValue).toLocaleString();
+                
+                const val = parseFloat(rawValue);
+                const resBox = document.getElementById("resBox");
+                const display = document.getElementById("resVal");
+                const displayArabic = document.getElementById("resArabic");
 
-            if (val > 0) {
                 resBox.style.display = "block";
-                // تم حذف الضرب والقسمة، يظهر الرقم كما هو
-                display.innerText = Number(val).toLocaleString() + " ليرة";
+                
+                // الحساب (بناءً على طلبك السابق بدون تقسيم، يظهر كما هو)
+                let result = val; 
+                
+                display.innerText = result.toLocaleString() + " ليرة";
+                
+                // التعديل الأول: تحويل الناتج لكلمات عربية
+                try {
+                    let fraction = (result % 1).toFixed(2) * 100;
+                    let tafgeet = new Tafgeet(result, 'SYP');
+                    displayArabic.innerText = tafgeet.parse();
+                } catch(e) {
+                    displayArabic.innerText = "";
+                }
             } else {
-                resBox.style.display = "none";
+                document.getElementById("resBox").style.display = "none";
+                if(input.value === "") input.value = "";
             }
         }
     </script>
