@@ -5,119 +5,140 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>محول الليرة السورية | جراح جاسم</title>
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: var(--bg-gradient);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 0;
-            color: #2c3e50;
+            color: #333;
         }
 
         header {
             width: 100%;
-            background: #2c3e50;
+            background: var(--primary-color);
             color: white;
-            padding: 25px 0;
+            padding: 2rem 0;
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        /* تنسيق الجملة الدينية */
+        .blessing {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin: 15px 0;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            padding: 0 10px;
+            line-height: 1.4;
         }
 
         .container {
             background: white;
             width: 90%;
-            max-width: 400px;
-            padding: 30px;
+            max-width: 450px;
+            padding: 2rem;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin-top: 40px;
-            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
         input[type="number"] {
             width: 100%;
             padding: 15px;
             font-size: 1.2rem;
-            border: 2px solid #ddd;
-            border-radius: 10px;
+            border: 2px solid #eee;
+            border-radius: 12px;
             outline: none;
-            transition: border-color 0.3s;
             box-sizing: border-box;
-        }
-
-        input[type="number"]:focus {
-            border-color: #3498db;
+            text-align: center;
         }
 
         .result-box {
-            margin-top: 25px;
-            padding: 20px;
             background: #f8f9fa;
+            padding: 20px;
             border-radius: 12px;
-            border-right: 5px solid #3498db;
+            margin-top: 1rem;
+            border-right: 5px solid var(--accent-color);
             display: none;
         }
 
-        .result-value {
-            font-size: 1.6rem;
+        .result-text {
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #3498db;
+            color: var(--accent-color);
         }
 
         footer {
             margin-top: auto;
-            padding: 20px;
+            padding: 2rem;
             text-align: center;
         }
 
-        .insta {
-            color: #e1306c;
-            text-decoration: none;
-            font-weight: bold;
+        .insta-link {
+            display: inline-flex;
+            align-items: center;
             background: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #e1306c;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
     </style>
 </head>
 <body>
 
-    <header>حاسبة تحويل الليرة السورية</header>
+    <header>محول الليرة السورية</header>
+
+    <div class="blessing">اللهم صلِّ وسلم على نبينا محمد</div>
 
     <div class="container">
-        <h3 style="margin-top:0">المبلغ بالليرة القديمة</h3>
-        <input type="number" id="oldAmount" placeholder="أدخل المبلغ هنا..." oninput="calculate()">
+        <h2 style="font-size: 1.1rem; margin-bottom: 1rem;">أدخل المبلغ بالليرة القديمة 💸</h2>
+        <input type="number" id="oldAmount" placeholder="0.00" oninput="convert()">
 
-        <div class="result-box" id="resBox">
+        <div class="result-box" id="resultContainer">
             <div style="font-size: 0.9rem; color: #7f8c8d;">المبلغ بالليرة الجديدة:</div>
-            <div class="result-value" id="newAmount">0</div>
+            <div class="result-text" id="newAmountDisplay">0</div>
         </div>
     </div>
 
     <footer>
-        <p>تطوير: جراح جاسم</p>
-        <a href="https://www.instagram.com/54jarah" target="_blank" class="insta">📸 INSTA: @54jarah</a>
+        <p style="color: #555; margin-bottom: 10px;">برمجة وتطوير: جراح جاسم</p>
+        <a href="https://www.instagram.com/54jarah" target="_blank" class="insta-link">
+            📸 INSTA: @54jarah
+        </a>
     </footer>
 
     <script>
-        function calculate() {
+        function convert() {
             const input = document.getElementById("oldAmount");
-            const box = document.getElementById("resBox");
-            const display = document.getElementById("newAmount");
+            const resultContainer = document.getElementById("resultContainer");
+            const newAmountDisplay = document.getElementById("newAmountDisplay");
+            
             const val = parseFloat(input.value);
 
-            if (val > 0) {
-                box.style.display = "block";
-                const res = val / 100;
-                display.innerText = res.toLocaleString() + " ليرة";
-            } else {
-                box.style.display = "none";
+            if (isNaN(val) || val <= 0) {
+                resultContainer.style.display = "none";
+                return;
             }
+
+            resultContainer.style.display = "block";
+            const converted = val / 100;
+            newAmountDisplay.innerText = converted.toLocaleString(undefined, {minimumFractionDigits: 2}) + " ليرة جديدة";
         }
     </script>
 </body>
