@@ -19,7 +19,7 @@
             width: 100%;
             background: #2c3e50;
             color: white;
-            padding: 20px 0;
+            padding: 25px 0;
             text-align: center;
             font-size: 1.6rem;
             font-weight: bold;
@@ -35,21 +35,42 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
         }
-        select, input[type="number"] {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1rem;
-            border: 2px solid #ddd;
+        
+        /* تنسيق زر التبديل */
+        .toggle-container {
+            margin-bottom: 20px;
+            background: #f0f2f5;
+            padding: 5px;
             border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .toggle-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            background: transparent;
+            color: #7f8c8d;
+        }
+        .toggle-btn.active {
+            background: #2c3e50;
+            color: white;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.4rem;
+            border: 2px solid #eee;
+            border-radius: 15px;
             outline: none;
             text-align: center;
             box-sizing: border-box;
-            margin-bottom: 15px;
-            font-family: inherit;
-        }
-        select {
-            cursor: pointer;
-            background-color: #fcfcfc;
+            background: #fafafa;
         }
         .result-box {
             margin-top: 20px;
@@ -62,16 +83,16 @@
         .blessing-red-zone {
             font-size: 1.8rem;
             color: #2c3e50;
-            margin: 30px 0;
+            margin: 40px 0;
             font-weight: 800;
             text-align: center;
-            line-height: 1.4;
         }
         .counter-box {
             margin: 20px 0;
-            padding: 10px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         footer {
             margin-top: auto;
@@ -82,12 +103,12 @@
             display: inline-block;
             background: white;
             color: #e1306c;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 12px 25px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -96,18 +117,17 @@
     <header>محول الليرة السورية</header>
 
     <div class="container">
-        <p style="font-weight: bold; margin-bottom: 10px;">اختر نوع التحويل 🔄</p>
-        <select id="convertType" onchange="calc()">
-            <option value="oldToNew">من القديم إلى الجديد (÷100)</option>
-            <option value="newToOld">من الجديد إلى القديم (×100)</option>
-        </select>
+        <div class="toggle-container">
+            <button id="btnOldToNew" class="toggle-btn active" onclick="setMode('oldToNew')">من القديم للجديد</button>
+            <button id="btnNewToOld" class="toggle-btn" onclick="setMode('newToOld')">من الجديد للقديم</button>
+        </div>
 
-        <p id="inputLabel" style="font-weight: bold; margin-bottom: 10px;">أدخل المبلغ بالليرة القديمة 💸</p>
-        <input type="number" id="amountInput" placeholder="0.00" oninput="calc()">
+        <p id="labelDesc" style="font-weight: bold; margin-bottom: 15px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
+        <input type="number" id="mainInput" placeholder="0.00" oninput="calc()">
 
         <div class="result-box" id="resBox">
-            <small id="resultLabel" style="color: #7f8c8d;">النتيجة:</small>
-            <div id="resultValue" style="font-size: 1.5rem; font-weight: bold; color: #3498db;"></div>
+            <small id="resLabel" style="color: #7f8c8d;">المبلغ بالليرة الجديدة:</small>
+            <div id="resVal" style="font-size: 1.6rem; font-weight: bold; color: #3498db; margin-top: 5px;"></div>
         </div>
     </div>
 
@@ -116,45 +136,56 @@
     </div>
 
     <div class="counter-box">
-        <p style="font-size: 0.8rem; margin-bottom: 5px; color: #7f8c8d;">عدد زيارات الموقع</p>
+        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #7f8c8d;">عدد زيارات الموقع</p>
         <a href="https://www.freecounterstat.com" title="hit counter"><img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0" title="hit counter" alt="hit counter"></a>
     </div>
 
     <footer>
-        <p style="font-size: 0.9rem; color: #555;">برمجة وتطوير: جراح جاسم</p>
+        <p style="font-size: 0.9rem; color: #7f8c8d; margin-bottom: 10px;">برمجة وتطوير: جراح جاسم</p>
         <a href="https://www.instagram.com/54jarah" target="_blank" class="insta-btn">
-            📸 INSTA: @54jarah
+            INSTA: @54jarah 📸
         </a>
     </footer>
 
     <script>
-        function calc() {
-            const type = document.getElementById("convertType").value;
-            const val = parseFloat(document.getElementById("amountInput").value);
-            const resBox = document.getElementById("resBox");
-            const display = document.getElementById("resultValue");
-            const inputLabel = document.getElementById("inputLabel");
-            const resultLabel = document.getElementById("resultLabel");
+        let mode = 'oldToNew';
 
-            // تحديث النصوص بناءً على الاختيار
-            if (type === "oldToNew") {
-                inputLabel.innerText = "أدخل المبلغ بالليرة القديمة 💸";
-                resultLabel.innerText = "المبلغ بالليرة الجديدة:";
+        function setMode(newMode) {
+            mode = newMode;
+            
+            // تحديث شكل الأزرار
+            document.getElementById('btnOldToNew').classList.toggle('active', mode === 'oldToNew');
+            document.getElementById('btnNewToOld').classList.toggle('active', mode === 'newToOld');
+
+            // تحديث النصوص
+            const labelDesc = document.getElementById('labelDesc');
+            const resLabel = document.getElementById('resLabel');
+            
+            if (mode === 'oldToNew') {
+                labelDesc.innerText = "أدخل المبلغ بالليرة القديمة 💸";
+                resLabel.innerText = "المبلغ بالليرة الجديدة:";
             } else {
-                inputLabel.innerText = "أدخل المبلغ بالليرة الجديدة 💸";
-                resultLabel.innerText = "المبلغ بالليرة القديمة:";
+                labelDesc.innerText = "أدخل المبلغ بالليرة الجديدة 💸";
+                resLabel.innerText = "المبلغ بالليرة القديمة:";
             }
+            
+            calc(); // إعادة الحساب فور تغيير الوضع
+        }
 
-            // إجراء العملية الحسابية
+        function calc() {
+            const val = document.getElementById("mainInput").value;
+            const resBox = document.getElementById("resBox");
+            const display = document.getElementById("resVal");
+
             if (val > 0) {
                 resBox.style.display = "block";
-                let finalResult;
-                if (type === "oldToNew") {
-                    finalResult = val / 100;
+                let result;
+                if (mode === 'oldToNew') {
+                    result = val / 100;
                 } else {
-                    finalResult = val * 100;
+                    result = val * 100;
                 }
-                display.innerText = finalResult.toLocaleString() + " ليرة";
+                display.innerText = Number(result).toLocaleString() + " ليرة";
             } else {
                 resBox.style.display = "none";
             }
