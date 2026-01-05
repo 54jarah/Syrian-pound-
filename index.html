@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تحويل الليرة السورية القديمة للجديدة</title>
+    <style>
+        /* إعدادات أساسية */
+        body {
+            font-family: 'Arial', sans-serif;
+            direction: rtl;
+            text-align: center;
+            background: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 30px 0;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #357ab8;
+        }
+
+        #result {
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px 0;
+            font-size: 14px;
+            color: gray;
+            background: #f0f4f8;
+        }
+
+        footer a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>تحويل الليرة السورية القديمة للجديدة</header>
+
+    <div class="container">
+        <input type="number" id="oldAmount" placeholder="المبلغ بالليرة القديمة">
+        <br>
+        <button onclick="convert()">حوّل للمبلغ الجديد</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function convert() {
+            const oldAmount = parseFloat(document.getElementById("oldAmount").value);
+            if(isNaN(oldAmount) || oldAmount <= 0) {
+                document.getElementById("result").innerText = "رجاءً أدخل مبلغ صحيح أكبر من صفر";
+                return;
+            }
+
+            // نسبة التحويل: 1 ليرة جديدة = 100 ليرة قديمة
+            const newAmount = oldAmount / 100;
+            document.getElementById("result").innerText = `${oldAmount} ليرة قديمة = ${newAmount.toFixed(2)} ليرة جديدة`;
+        }
+    </script>
+
+    <footer>
+        مطور الموقع: جراح جاسم | 
+        <a href="https://www.instagram.com/54jarah" target="_blank">INSTA: @54jarah</a>
+    </footer>
+</body>
+</html>
