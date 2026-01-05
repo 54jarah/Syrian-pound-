@@ -105,7 +105,6 @@
             font-weight: 800;
             text-align: center;
         }
-        /* تعديل العداد: حذف المربع الأبيض وجعله شفافاً */
         .counter-section {
             margin-bottom: 20px;
             text-align: center;
@@ -139,7 +138,6 @@
         </div>
 
         <p id="labelDesc" style="font-weight: bold; margin-bottom: 15px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
-        
         <input type="text" id="mainInput" placeholder="0" inputmode="numeric" oninput="processInput(this)">
 
         <div class="result-box" id="resBox">
@@ -187,23 +185,31 @@
         }
 
         function processInput(input) {
-            // تنظيف المدخلات لتقبل الأرقام فقط وتجنب مشاكل التكرار
             let rawValue = input.value.replace(/\D/g, '');
-            input.value = rawValue; // نبقي الأرقام صافية في خانة الإدخال للاستقرار
+            input.value = rawValue; 
 
             const resBox = document.getElementById("resBox");
             const displayNum = document.getElementById("resVal");
             const displayArabic = document.getElementById("resArabic");
 
             if (rawValue !== '' && parseInt(rawValue) > 0) {
-                let numValue = parseInt(rawValue, 10);
+                let inputNum = parseInt(rawValue, 10);
                 resBox.style.display = "block";
                 
-                // عرض الفواصل فقط في مربع النتيجة الأزرق
-                displayNum.innerText = numValue.toLocaleString() + " ليرة";
+                // --- استعادة عملية التحويل الحسابية هنا ---
+                let finalResult;
+                if (mode === 'oldToNew') {
+                    finalResult = inputNum / 100; // القديم للجديد نقسم على 100
+                } else {
+                    finalResult = inputNum * 100; // الجديد للقديم نضرب في 100
+                }
                 
+                // عرض الناتج الرقمي مع فواصل
+                displayNum.innerText = finalResult.toLocaleString() + " ليرة";
+                
+                // تحويل الناتج لكلمات عربية
                 try {
-                    let tafgeet = new Tafgeet(numValue, 'SYP');
+                    let tafgeet = new Tafgeet(finalResult, 'SYP');
                     displayArabic.innerText = tafgeet.parse();
                 } catch(e) {
                     displayArabic.innerText = "";
