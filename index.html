@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محول الليرة السورية | جراح جاسم</title>
+    
+    <title>محول الليرة السورية | موقع جراح لتحويل الليرة</title>
+    <meta name="description" content="أفضل موقع لتحويل الليرة السورية من القديم إلى الجديد والعكس. موقع جراح جاسم لتحويل العملة بدقة وسهولة مع ميزة التفقيط بالعربي.">
+    <meta name="keywords" content="تحويل الليرة السورية, تحويل الليرة من قديم الى جديد, تحويل الليرة من جديد الى قديم, موقع جراح لتحويل الليرة, جراح جاسم, ليرة سورية">
+    <meta name="author" content="جراح جاسم">
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -205,13 +210,11 @@
             if (rawValue !== '' && parseInt(rawValue) > 0) {
                 let inputNum = parseInt(rawValue, 10);
                 
-                // 1. تفقيط ما يكتبه المستخدم حالياً
                 try {
                     let inputTafgeet = new Tafgeet(inputNum, 'SYP');
                     inputArabicHint.innerText = inputTafgeet.parse();
                 } catch(e) { inputArabicHint.innerText = ""; }
 
-                // 2. عملية الحساب
                 resBox.style.display = "block";
                 let finalResult;
                 if (mode === 'oldToNew') {
@@ -220,7 +223,6 @@
                     finalResult = inputNum * 100;
                 }
                 
-                // 3. عرض الناتج الرقمي والكتابي
                 displayNum.innerText = finalResult.toLocaleString() + " ليرة";
                 try {
                     let resTafgeet = new Tafgeet(finalResult, 'SYP');
