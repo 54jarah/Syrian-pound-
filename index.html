@@ -3,142 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>محول الليرة السورية | موقع جراح لتحويل الليرة</title>
-    <meta name="description" content="موقع جراح جاسم لتحويل الليرة السورية من القديم إلى الجديد والعكس مع ميزة التفقيط بالعربي.">
-    <meta name="keywords" content="تحويل الليرة السورية, تحويل الليرة من قديم الى جديد, موقع جراح لتحويل الليرة, جراح جاسم">
-
+    <title>محول الليرة السورية | موقع جراح</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            color: #2c3e50;
-        }
-        header {
-            width: 100%;
-            background: #2c3e50;
-            color: white;
-            padding: 25px 0;
-            text-align: center;
-            font-size: 1.6rem;
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .container {
-            background: white;
-            width: 90%;
-            max-width: 400px;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .option-title {
-            font-size: 0.95rem;
-            font-weight: bold;
-            margin-bottom: 12px;
-            color: #34495e;
-            text-align: right;
-        }
-        .toggle-container {
-            margin-bottom: 20px;
-            background: #f0f2f5;
-            padding: 5px;
-            border-radius: 12px;
-            display: flex;
-        }
-        .toggle-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            background: transparent;
-            color: #7f8c8d;
-        }
-        .toggle-btn.active {
-            background: #2c3e50;
-            color: white;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 18px;
-            font-size: 1.5rem;
-            border: 2px solid #eee;
-            border-radius: 15px;
-            outline: none;
-            text-align: center;
-            box-sizing: border-box;
-            background: #fafafa;
-            color: #2c3e50;
-        }
-        /* نص التفقيط تحت خانة الكتابة */
-        .hint-text {
-            font-size: 0.9rem;
-            color: #e67e22; 
-            margin-top: 10px;
-            display: block;
-            min-height: 1.2em;
-            font-weight: bold;
-        }
-        .result-box {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border-right: 5px solid #3498db;
-            display: none;
-        }
-        .res-numeric {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #3498db;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .res-arabic {
-            font-size: 1.1rem;
-            color: #27ae60;
-            font-weight: bold;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-            display: block;
-            line-height: 1.5;
-        }
-        .blessing-red-zone {
-            font-size: 1.6rem;
-            color: #2c3e50;
-            margin: 30px 0 10px 0;
-            font-weight: 800;
-            text-align: center;
-        }
-        .counter-section {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            text-align: center;
-        }
-        .insta-btn {
-            display: inline-block;
-            background: white;
-            color: #e1306c;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+        /* التنسيقات السابقة كما هي لتحافظ على جمالية موقعك */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; display: flex; flex-direction: column; align-items: center; margin: 0; color: #2c3e50; }
+        header { width: 100%; background: #2c3e50; color: white; padding: 25px 0; text-align: center; font-size: 1.6rem; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .container { background: white; width: 90%; max-width: 400px; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
+        .option-title { font-size: 0.95rem; font-weight: bold; margin-bottom: 12px; color: #34495e; text-align: right; }
+        .toggle-container { margin-bottom: 20px; background: #f0f2f5; padding: 5px; border-radius: 12px; display: flex; }
+        .toggle-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; background: transparent; color: #7f8c8d; }
+        .toggle-btn.active { background: #2c3e50; color: white; }
+        input[type="text"] { width: 100%; padding: 18px; font-size: 1.5rem; border: 2px solid #eee; border-radius: 15px; outline: none; text-align: center; box-sizing: border-box; background: #fafafa; color: #2c3e50; }
+        .hint-text { font-size: 0.9rem; color: #e67e22; margin-top: 10px; display: block; min-height: 1.2em; font-weight: bold; }
+        .result-box { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-right: 5px solid #3498db; display: none; }
+        .res-numeric { font-size: 1.8rem; font-weight: bold; color: #3498db; display: block; margin-bottom: 10px; }
+        .res-arabic { font-size: 1.1rem; color: #27ae60; font-weight: bold; border-top: 1px solid #eee; padding-top: 10px; display: block; line-height: 1.5; }
+        .blessing-red-zone { font-size: 1.6rem; color: #2c3e50; margin: 30px 0 10px 0; font-weight: 800; text-align: center; }
+        .counter-section { margin-bottom: 20px; text-align: center; background: rgba(255,255,255,0.5); padding: 10px 20px; border-radius: 15px; backdrop-filter: blur(5px); }
+        #visits-count { font-size: 1.3rem; font-weight: bold; color: #2c3e50; }
+        footer { margin-top: auto; padding: 20px; text-align: center; }
+        .insta-btn { display: inline-block; background: white; color: #e1306c; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -154,7 +38,7 @@
 
         <p id="labelDesc" style="font-weight: bold; margin-bottom: 10px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
         
-        <input type="text" id="mainInput" placeholder="0" inputmode="numeric" oninput="processInput()">
+        <input type="text" id="mainInput" placeholder="0" inputmode="numeric" oninput="processInput()" autocomplete="off">
         <span id="inputHint" class="hint-text"></span>
 
         <div class="result-box" id="resBox">
@@ -167,10 +51,8 @@
     <div class="blessing-red-zone">اللهم صلِّ وسلم على نبينا محمد</div>
 
     <div class="counter-section">
-        <p style="font-size: 0.75rem; margin-bottom: 5px; color: #7f8c8d;">عدد زيارات الموقع</p>
-        <a href="https://www.freecounterstat.com" title="hit counter">
-            <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0" title="hit counter" alt="hit counter">
-        </a>
+        <p style="font-size: 0.75rem; margin-bottom: 5px; color: #7f8c8d;">إجمالي زيارات الموقع</p>
+        <span id="visits-count">135</span>
     </div>
 
     <footer>
@@ -181,16 +63,31 @@
     <script src="https://cdn.jsdelivr.net/gh/mabdullahadeel/tafgeetjs@master/tafgeet.js"></script>
     
     <script>
-        let mode = 'oldToNew';
+        // دالة العداد المحدثة بالرقم القديم
+        function updateCounter() {
+            const baseValue = 135; // الرقم القديم الخاص بك
+            const key = 'jarah_syr_v1'; // مفتاح فريد لموقعك
 
+            fetch(`https://api.countapi.xyz/hit/${key}/visits`)
+                .then(res => res.json())
+                .then(res => {
+                    // نجمع الرقم 135 مع عدد الزيارات الجديدة المسجلة في الـ API
+                    document.getElementById('visits-count').innerText = (baseValue + res.value).toLocaleString();
+                })
+                .catch(err => {
+                    document.getElementById('visits-count').innerText = baseValue.toLocaleString();
+                });
+        }
+        updateCounter();
+
+        // باقي دوال التحويل كما هي
+        let mode = 'oldToNew';
         function setMode(newMode) {
             mode = newMode;
             document.getElementById('btnOldToNew').classList.toggle('active', mode === 'oldToNew');
             document.getElementById('btnNewToOld').classList.toggle('active', mode === 'newToOld');
-            
             const labelDesc = document.getElementById('labelDesc');
             const resLabel = document.getElementById('resLabel');
-            
             if (mode === 'oldToNew') {
                 labelDesc.innerText = "أدخل المبلغ بالليرة القديمة 💸";
                 resLabel.innerText = "المبلغ بالليرة الجديدة:";
@@ -203,9 +100,8 @@
 
         function processInput() {
             const input = document.getElementById('mainInput');
-            let rawValue = input.value.replace(/\D/g, ''); // تنظيف من أي رموز
+            let rawValue = input.value.replace(/\D/g, ''); 
             input.value = rawValue; 
-
             const resBox = document.getElementById("resBox");
             const displayNum = document.getElementById("resVal");
             const displayArabic = document.getElementById("resArabic");
@@ -213,36 +109,21 @@
 
             if (rawValue !== '' && parseInt(rawValue) > 0) {
                 let inputNum = parseInt(rawValue, 10);
-                
-                // 1. تفقيط الرقم الذي تكتبه حالياً (فوق)
                 if (typeof Tafgeet !== "undefined") {
                     try {
                         let tafInput = new Tafgeet(inputNum, 'SYP');
                         inputHint.innerText = tafInput.parse();
                     } catch(e) { inputHint.innerText = ""; }
                 }
-
                 resBox.style.display = "block";
-                
-                // 2. عملية الحساب الحقيقية
-                let finalResult;
-                if (mode === 'oldToNew') {
-                    finalResult = inputNum / 100;
-                } else {
-                    finalResult = inputNum * 100;
-                }
-                
-                // 3. عرض الناتج الرقمي مع الفواصل
+                let finalResult = (mode === 'oldToNew') ? inputNum / 100 : inputNum * 100;
                 displayNum.innerText = finalResult.toLocaleString() + " ليرة";
-                
-                // 4. تفقيط الناتج النهائي (تحت)
                 if (typeof Tafgeet !== "undefined") {
                     try {
                         let tafRes = new Tafgeet(finalResult, 'SYP');
                         displayArabic.innerText = tafRes.parse();
                     } catch(e) { displayArabic.innerText = ""; }
                 }
-                
             } else {
                 resBox.style.display = "none";
                 inputHint.innerText = "";
