@@ -1,115 +1,124 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تحويل الليرة السورية القديمة للجديدة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محول الليرة السورية | جراح جاسم</title>
     <style>
-        /* إعدادات أساسية */
         body {
-            font-family: 'Arial', sans-serif;
-            direction: rtl;
-            text-align: center;
-            background: #f0f4f8;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin: 0;
-            padding: 0;
+            color: #2c3e50;
         }
 
         header {
-            background-color: #4a90e2;
+            width: 100%;
+            background: #2c3e50;
             color: white;
-            padding: 30px 0;
-            font-size: 28px;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 1.5rem;
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .container {
-            max-width: 400px;
-            margin: 50px auto;
             background: white;
+            width: 90%;
+            max-width: 400px;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-top: 40px;
+            text-align: center;
         }
 
         input[type="number"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            font-size: 18px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
         }
 
-        button {
-            padding: 12px 20px;
-            font-size: 18px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
+        input[type="number"]:focus {
+            border-color: #3498db;
         }
 
-        button:hover {
-            background-color: #357ab8;
-        }
-
-        #result {
+        .result-box {
             margin-top: 25px;
-            font-size: 22px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-right: 5px solid #3498db;
+            display: none;
+        }
+
+        .result-value {
+            font-size: 1.6rem;
             font-weight: bold;
-            color: #4a90e2;
+            color: #3498db;
         }
 
         footer {
-            margin-top: 50px;
-            padding: 20px 0;
-            font-size: 14px;
-            color: gray;
-            background: #f0f4f8;
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
         }
 
-        footer a {
-            color: #4a90e2;
+        .insta {
+            color: #e1306c;
             text-decoration: none;
             font-weight: bold;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
-    <header>تحويل الليرة السورية القديمة للجديدة</header>
+
+    <header>حاسبة تحويل الليرة السورية</header>
 
     <div class="container">
-        <input type="number" id="oldAmount" placeholder="المبلغ بالليرة القديمة">
-        <br>
-        <button onclick="convert()">حوّل للمبلغ الجديد</button>
-        <div id="result"></div>
+        <h3 style="margin-top:0">المبلغ بالليرة القديمة</h3>
+        <input type="number" id="oldAmount" placeholder="أدخل المبلغ هنا..." oninput="calculate()">
+
+        <div class="result-box" id="resBox">
+            <div style="font-size: 0.9rem; color: #7f8c8d;">المبلغ بالليرة الجديدة:</div>
+            <div class="result-value" id="newAmount">0</div>
+        </div>
     </div>
 
-    <script>
-        function convert() {
-            const oldAmount = parseFloat(document.getElementById("oldAmount").value);
-            if(isNaN(oldAmount) || oldAmount <= 0) {
-                document.getElementById("result").innerText = "رجاءً أدخل مبلغ صحيح أكبر من صفر";
-                return;
-            }
+    <footer>
+        <p>تطوير: جراح جاسم</p>
+        <a href="https://www.instagram.com/54jarah" target="_blank" class="insta">📸 INSTA: @54jarah</a>
+    </footer>
 
-            // نسبة التحويل: 1 ليرة جديدة = 100 ليرة قديمة
-            const newAmount = oldAmount / 100;
-            document.getElementById("result").innerText = `${oldAmount} ليرة قديمة = ${newAmount.toFixed(2)} ليرة جديدة`;
+    <script>
+        function calculate() {
+            const input = document.getElementById("oldAmount");
+            const box = document.getElementById("resBox");
+            const display = document.getElementById("newAmount");
+            const val = parseFloat(input.value);
+
+            if (val > 0) {
+                box.style.display = "block";
+                const res = val / 100;
+                display.innerText = res.toLocaleString() + " ليرة";
+            } else {
+                box.style.display = "none";
+            }
         }
     </script>
-
-    <footer>
-        مطور الموقع: جراح جاسم | 
-        <a href="https://www.instagram.com/54jarah" target="_blank">INSTA: @54jarah</a>
-    </footer>
 </body>
 </html>
