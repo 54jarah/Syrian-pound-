@@ -35,15 +35,21 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
         }
-        input[type="number"] {
+        select, input[type="number"] {
             width: 100%;
             padding: 15px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             border: 2px solid #ddd;
             border-radius: 12px;
             outline: none;
             text-align: center;
             box-sizing: border-box;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+        select {
+            cursor: pointer;
+            background-color: #fcfcfc;
         }
         .result-box {
             margin-top: 20px;
@@ -61,7 +67,6 @@
             text-align: center;
             line-height: 1.4;
         }
-        /* تنسيق مكان العداد الجديد */
         .counter-box {
             margin: 20px 0;
             padding: 10px;
@@ -91,11 +96,18 @@
     <header>محول الليرة السورية</header>
 
     <div class="container">
-        <p style="font-weight: bold; margin-bottom: 15px;">أدخل المبلغ بالليرة القديمة 💸</p>
-        <input type="number" id="oldAmount" placeholder="0.00" oninput="calc()">
+        <p style="font-weight: bold; margin-bottom: 10px;">اختر نوع التحويل 🔄</p>
+        <select id="convertType" onchange="calc()">
+            <option value="oldToNew">من القديم إلى الجديد (÷100)</option>
+            <option value="newToOld">من الجديد إلى القديم (×100)</option>
+        </select>
+
+        <p id="inputLabel" style="font-weight: bold; margin-bottom: 10px;">أدخل المبلغ بالليرة القديمة 💸</p>
+        <input type="number" id="amountInput" placeholder="0.00" oninput="calc()">
+
         <div class="result-box" id="resBox">
-            <small style="color: #7f8c8d;">المبلغ بالليرة الجديدة:</small>
-            <div id="newAmount" style="font-size: 1.5rem; font-weight: bold; color: #3498db;"></div>
+            <small id="resultLabel" style="color: #7f8c8d;">النتيجة:</small>
+            <div id="resultValue" style="font-size: 1.5rem; font-weight: bold; color: #3498db;"></div>
         </div>
     </div>
 
@@ -117,12 +129,32 @@
 
     <script>
         function calc() {
-            const val = document.getElementById("oldAmount").value;
+            const type = document.getElementById("convertType").value;
+            const val = parseFloat(document.getElementById("amountInput").value);
             const resBox = document.getElementById("resBox");
-            const display = document.getElementById("newAmount");
+            const display = document.getElementById("resultValue");
+            const inputLabel = document.getElementById("inputLabel");
+            const resultLabel = document.getElementById("resultLabel");
+
+            // تحديث النصوص بناءً على الاختيار
+            if (type === "oldToNew") {
+                inputLabel.innerText = "أدخل المبلغ بالليرة القديمة 💸";
+                resultLabel.innerText = "المبلغ بالليرة الجديدة:";
+            } else {
+                inputLabel.innerText = "أدخل المبلغ بالليرة الجديدة 💸";
+                resultLabel.innerText = "المبلغ بالليرة القديمة:";
+            }
+
+            // إجراء العملية الحسابية
             if (val > 0) {
                 resBox.style.display = "block";
-                display.innerText = (val / 100).toLocaleString() + " ليرة";
+                let finalResult;
+                if (type === "oldToNew") {
+                    finalResult = val / 100;
+                } else {
+                    finalResult = val * 100;
+                }
+                display.innerText = finalResult.toLocaleString() + " ليرة";
             } else {
                 resBox.style.display = "none";
             }
