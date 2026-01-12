@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>محول الليرة السورية | موقع جراح لتحويل الليرة</title>
     <meta name="description" content="موقع جراح جاسم لتحويل الليرة السورية من القديم إلى الجديد والعكس مع ميزة التفقيط بالعربي.">
     <meta name="keywords" content="تحويل الليرة السورية, تحويل الليرة من قديم الى جديد, موقع جراح لتحويل الليرة, جراح جاسم">
@@ -80,10 +80,9 @@
             background: #fafafa;
             color: #2c3e50;
         }
-        /* نص التفقيط تحت خانة الكتابة */
         .hint-text {
             font-size: 0.9rem;
-            color: #e67e22; 
+            color: #e67e22;
             margin-top: 10px;
             display: block;
             min-height: 1.2em;
@@ -120,134 +119,101 @@
             font-weight: 800;
             text-align: center;
         }
-        .counter-section {
-            margin-bottom: 20px;
-            text-align: center;
-        }
         footer {
             margin-top: auto;
             padding: 20px;
             text-align: center;
         }
-        .insta-btn {
-            display: inline-block;
-            background: white;
-            color: #e1306c;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
     </style>
 </head>
 <body>
 
-    <header>محول الليرة السورية</header>
+<header>محول الليرة السورية</header>
 
-    <div class="container">
-        <div class="option-title">اختر طريقة التحويل</div>
-        <div class="toggle-container">
-            <button id="btnOldToNew" class="toggle-btn active" onclick="setMode('oldToNew')">من القديم للجديد</button>
-            <button id="btnNewToOld" class="toggle-btn" onclick="setMode('newToOld')">من الجديد للقديم</button>
-        </div>
-
-        <p id="labelDesc" style="font-weight: bold; margin-bottom: 10px; color: #555;">أدخل المبلغ بالليرة القديمة 💸</p>
-        
-        <input type="text" id="mainInput" placeholder="0" inputmode="numeric" oninput="processInput()">
-        <span id="inputHint" class="hint-text"></span>
-
-        <div class="result-box" id="resBox">
-            <small id="resLabel" style="color: #7f8c8d; display:block; margin-bottom:5px;">المبلغ بالليرة الجديدة:</small>
-            <span id="resVal" class="res-numeric"></span>
-            <span id="resArabic" class="res-arabic"></span>
-        </div>
+<div class="container">
+    <div class="option-title">اختر طريقة التحويل</div>
+    <div class="toggle-container">
+        <button id="btnOldToNew" class="toggle-btn active" onclick="setMode('oldToNew')">من القديم للجديد</button>
+        <button id="btnNewToOld" class="toggle-btn" onclick="setMode('newToOld')">من الجديد للقديم</button>
     </div>
 
-    <div class="blessing-red-zone">اللهم صلِّ وسلم على نبينا محمد</div>
+    <p id="labelDesc" style="font-weight:bold;margin-bottom:10px;">أدخل المبلغ بالليرة القديمة 💸</p>
 
-    <div class="counter-section">
-        <p style="font-size: 0.75rem; margin-bottom: 5px; color: #7f8c8d;">عدد زيارات الموقع</p>
-        <a href="https://www.freecounterstat.com" title="hit counter">
-            <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=8e8vbl668re3e658y3m6y66j5b7s9w8e" border="0" title="hit counter" alt="hit counter">
-        </a>
+    <input type="text" id="mainInput" placeholder="0" oninput="processInput()">
+    <span id="inputHint" class="hint-text"></span>
+
+    <div class="result-box" id="resBox">
+        <small id="resLabel">المبلغ بالليرة الجديدة:</small>
+        <span id="resVal" class="res-numeric"></span>
+        <span id="resArabic" class="res-arabic"></span>
     </div>
+</div>
 
-    <footer>
-        <p style="font-size: 0.8rem; color: #7f8c8d; margin-bottom: 10px;">برمجة وتطوير: جراح جاسم</p>
-        <a href="https://www.instagram.com/54jarah" target="_blank" class="insta-btn">INSTA: @54jarah 📸</a>
-    </footer>
+<div class="blessing-red-zone">اللهم صلِّ وسلم على نبينا محمد</div>
 
-    <script src="https://cdn.jsdelivr.net/gh/mabdullahadeel/tafgeetjs@master/tafgeet.js"></script>
-    
-    <script>
-        let mode = 'oldToNew';
+<script src="https://cdn.jsdelivr.net/gh/mabdullahadeel/tafgeetjs@master/tafgeet.js"></script>
 
-        function setMode(newMode) {
-            mode = newMode;
-            document.getElementById('btnOldToNew').classList.toggle('active', mode === 'oldToNew');
-            document.getElementById('btnNewToOld').classList.toggle('active', mode === 'newToOld');
-            
-            const labelDesc = document.getElementById('labelDesc');
-            const resLabel = document.getElementById('resLabel');
-            
-            if (mode === 'oldToNew') {
-                labelDesc.innerText = "أدخل المبلغ بالليرة القديمة 💸";
-                resLabel.innerText = "المبلغ بالليرة الجديدة:";
-            } else {
-                labelDesc.innerText = "أدخل المبلغ بالليرة الجديدة 💸";
-                resLabel.innerText = "المبلغ بالليرة القديمة:";
-            }
-            processInput();
-        }
+<script>
+let mode = 'oldToNew';
 
-        function processInput() {
-            const input = document.getElementById('mainInput');
-            let rawValue = input.value.replace(/\D/g, ''); // تنظيف من أي رموز
-            input.value = rawValue; 
+function setMode(newMode) {
+    mode = newMode;
+    document.getElementById('btnOldToNew').classList.toggle('active', mode === 'oldToNew');
+    document.getElementById('btnNewToOld').classList.toggle('active', mode === 'newToOld');
 
-            const resBox = document.getElementById("resBox");
-            const displayNum = document.getElementById("resVal");
-            const displayArabic = document.getElementById("resArabic");
-            const inputHint = document.getElementById("inputHint");
+    document.getElementById('labelDesc').innerText =
+        mode === 'oldToNew'
+        ? "أدخل المبلغ بالليرة القديمة 💸"
+        : "أدخل المبلغ بالليرة الجديدة 💸";
 
-            if (rawValue !== '' && parseInt(rawValue) > 0) {
-                let inputNum = parseInt(rawValue, 10);
-                
-                // 1. تفقيط الرقم الذي تكتبه حالياً (فوق)
-                if (typeof Tafgeet !== "undefined") {
-                    try {
-                        let tafInput = new Tafgeet(inputNum, 'SYP');
-                        inputHint.innerText = tafInput.parse();
-                    } catch(e) { inputHint.innerText = ""; }
-                }
+    document.getElementById('resLabel').innerText =
+        mode === 'oldToNew'
+        ? "المبلغ بالليرة الجديدة:"
+        : "المبلغ بالليرة القديمة:";
 
-                resBox.style.display = "block";
-                
-                // 2. عملية الحساب الحقيقية
-                let finalResult;
-                if (mode === 'oldToNew') {
-                    finalResult = inputNum / 100;
-                } else {
-                    finalResult = inputNum * 100;
-                }
-                
-                // 3. عرض الناتج الرقمي مع الفواصل
-                displayNum.innerText = finalResult.toLocaleString() + " ليرة";
-                
-                // 4. تفقيط الناتج النهائي (تحت)
-                if (typeof Tafgeet !== "undefined") {
-                    try {
-                        let tafRes = new Tafgeet(finalResult, 'SYP');
-                        displayArabic.innerText = tafRes.parse();
-                    } catch(e) { displayArabic.innerText = ""; }
-                }
-                
-            } else {
-                resBox.style.display = "none";
-                inputHint.innerText = "";
-            }
-        }
-    </script>
+    processInput();
+}
+
+function formatWithDots(num) {
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function processInput() {
+    const input = document.getElementById('mainInput');
+
+    let rawValue = input.value.replace(/\D/g, '');
+    input.value = formatWithDots(rawValue);
+
+    const resBox = document.getElementById("resBox");
+    const displayNum = document.getElementById("resVal");
+    const displayArabic = document.getElementById("resArabic");
+    const inputHint = document.getElementById("inputHint");
+
+    if (rawValue && Number(rawValue) > 0) {
+        let inputNum = Number(rawValue);
+
+        try {
+            inputHint.innerText = new Tafgeet(inputNum, 'SYP').parse();
+        } catch {}
+
+        resBox.style.display = "block";
+
+        let finalResult = mode === 'oldToNew'
+            ? inputNum / 100
+            : inputNum * 100;
+
+        displayNum.innerText = finalResult.toLocaleString() + " ليرة";
+
+        try {
+            displayArabic.innerText = new Tafgeet(finalResult, 'SYP').parse();
+        } catch {}
+
+    } else {
+        resBox.style.display = "none";
+        inputHint.innerText = "";
+    }
+}
+</script>
+
 </body>
 </html>
